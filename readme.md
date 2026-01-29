@@ -14,22 +14,24 @@
 
 ## Otwórz:
 
-http://localhost:4200/
+- http://localhost:4200/
 
-### Funkcjonalności podstawowe:
+# Spis funkcjonalności:
+
+## Funkcjonalności podstawowe:
 
 - Profil użytkownika
 - System komentarzy
 
-### Funkcjonalnośc zaawansowana:
+## Funkcjonalnośc zaawansowana:
 
 - Upload obrazków
 
-### Funkcjonalnośc własna:
+## Funkcjonalnośc własna:
 
 - Ukrywanie postów (Naciśnięcie przycisku oka w blogu ukrywa post i pojawia się on teraz w zakładce ukryte)
 
 
-### Link do github:
+## Link do github:
 
-https://github.com/BowDead/TAW-Bartlomiej-Gwozdz-MEAN-APP/tree/main
+- https://github.com/BowDead/TAW-Bartlomiej-Gwozdz-MEAN-APP/tree/main
