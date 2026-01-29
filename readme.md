@@ -2,10 +2,12 @@
 
 ## Lokacja LAB 08 TAW Bartlomiej Gwozdz/api 
 
+npm install (pierwsze uruchomienie)
 npm run watch
 
 ## Lokacja LAB09 TAW BG/blog
 
+npm install (pierwsze uruchomienie)
 npm start
 
 
