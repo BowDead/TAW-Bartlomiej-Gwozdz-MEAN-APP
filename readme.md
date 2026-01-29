@@ -21,3 +21,8 @@ npm start
 ### Funkcjonalnośc własna:
 
 - Ukrywanie postów
+
+
+### Link do github:
+
+https://github.com/BowDead/TAW-Bartlomiej-Gwozdz-MEAN-APP/tree/main
