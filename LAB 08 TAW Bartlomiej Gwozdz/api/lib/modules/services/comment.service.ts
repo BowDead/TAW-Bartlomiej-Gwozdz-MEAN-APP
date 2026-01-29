@@ -28,7 +28,6 @@ class CommentService {
                 return null;
             }
 
-            // If userId is provided, check if user is the author
             if (userId && comment.authorId !== userId) {
                 throw new Error('Unauthorized to delete this comment');
             }

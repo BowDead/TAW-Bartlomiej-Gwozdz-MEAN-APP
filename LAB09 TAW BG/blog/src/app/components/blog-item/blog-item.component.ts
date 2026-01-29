@@ -89,11 +89,11 @@ export class BlogItemComponent implements OnChanges {
   }
 
   isPostOwner(): boolean {
-    // przypadkiem dodałem posty bez autora, więc chciałem je też móc usunąć
+    // Usuwanie postów bez autora
     if (!this.userId && this.authService.isLoggedIn()) {
       return true;
     }
-    // Dodałem usunięcie posta, bo ciężko było mi używać bloga bez tego
+    // Usuwanie postów jako autor
     const currentUser = this.authService.currentUser;
     if (!currentUser) {
       return false;

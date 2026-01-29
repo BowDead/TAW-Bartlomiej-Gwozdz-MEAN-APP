@@ -106,7 +106,7 @@ export class AddPostComponent {
 
     const { title, text, image } = this.postForm.value;
     
-    // Pokazanie previev obrazu w base64, dla sprawdzenia
+    // Pokazanie preview obrazu w base64, dla sprawdzenia
     const finalImage = this.imageSource === 'file' ? this.imagePreview : image;
     const post = { title, text, image: finalImage };
 

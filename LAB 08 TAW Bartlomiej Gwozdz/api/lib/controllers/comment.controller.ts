@@ -13,16 +13,16 @@ class CommentController implements Controller {
     }
 
     private initializeRoutes(): void {
-        // Get comments for a specific post
+        // Otrzymanie komentarczy dla posta o konkretnym id
         this.router.get(`${this.path}/:postId`, this.getCommentsByPostId);
         
-        // Create a new comment
+        // Tworzenie nowego komentarza
         this.router.post(`${this.path}`, this.createComment);
         
-        // Delete a comment
+        // Usuwanie komentarza
         this.router.delete(`${this.path}/:id`, this.deleteComment);
         
-        // Get all comments (nie używam, ale zostawiłem)
+        // Pobranie wszystkich komentarzy
         this.router.get(`${this.path}`, this.getAllComments);
     }
 

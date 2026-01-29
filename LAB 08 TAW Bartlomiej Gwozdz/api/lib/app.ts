@@ -21,7 +21,6 @@ class App {
         this.app.use(cors());
         this.app.use(bodyParser.json({ limit: '50mb' }));
         this.app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
-        // this.app.use(morgan('dev')); 
         this.app.use(this.loggingMiddleware);
         
         this.app.use('/images', express.static(path.join(__dirname, '../images')));

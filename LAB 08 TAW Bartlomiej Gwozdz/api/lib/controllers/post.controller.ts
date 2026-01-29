@@ -79,7 +79,7 @@ class PostController implements Controller {
         this.router.get(`${this.path}/:id`, this.getElementById);
         this.router.post(`${this.path}`, this.addEmpty);
         this.router.delete(`${this.path}/:id`, this.removePost);
-        //statyczne (w sumie też nie używane)
+        //statyczne (obecnie nie używane)
         this.router.get(`/api/posts`, this.getAllData);
         this.router.post(`/api/posts`, upload.single('image'), this.handleUploadError.bind(this), this.addNewPost);
         this.router.delete(`/api/posts`, this.delAllData);
