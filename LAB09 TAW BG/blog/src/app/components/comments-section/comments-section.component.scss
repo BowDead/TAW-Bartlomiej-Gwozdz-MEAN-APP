@@ -1,18 +1,18 @@
 .comments-section {
   margin-top: 2rem;
   padding: 1.5rem;
-  background-color: #f9f9f9;
+  background-color: var(--card-bg);
   border-radius: 8px;
 
   h3 {
     margin-bottom: 1.5rem;
-    color: #333;
+    color: var(--text-color);
     font-size: 1.5rem;
   }
 
   h4 {
     margin-bottom: 1rem;
-    color: #555;
+    color: var(--text-color);
     font-size: 1.2rem;
   }
 
@@ -36,7 +36,7 @@
   margin-bottom: 2rem;
 
   .comment-item {
-    background-color: white;
+    background-color: var(--card-bg);
     padding: 1rem;
     margin-bottom: 1rem;
     border-radius: 6px;
@@ -48,7 +48,7 @@
       align-items: center;
       margin-bottom: 0.5rem;
       padding-bottom: 0.5rem;
-      border-bottom: 1px solid #eee;
+      border-bottom: 1px solid var(--border-color);
 
       .comment-author-info {
         display: flex;
@@ -57,12 +57,13 @@
       }
 
       .comment-author {
-        color: #2c3e50;
+        color: var(--text-color);
         font-size: 1rem;
       }
 
       .comment-date {
-        color: #999;
+        color: var(--text-color);
+        opacity: 0.6;
         font-size: 0.85rem;
       }
 
@@ -87,7 +88,7 @@
     }
 
     .comment-content {
-      color: #555;
+      color: var(--text-color);
       line-height: 1.6;
       margin: 0;
     }
@@ -96,13 +97,14 @@
   .no-comments {
     text-align: center;
     padding: 2rem;
-    color: #999;
+    color: var(--text-color);
+    opacity: 0.7;
     font-style: italic;
   }
 }
 
 .add-comment-form {
-  background-color: white;
+  background-color: var(--card-bg);
   padding: 1.5rem;
   border-radius: 6px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -140,7 +142,7 @@
   .loading {
     text-align: center;
     padding: 1rem;
-    color: #666;
+    color: var(--text-color);
   }
 
   .form-group {
@@ -149,18 +151,20 @@
     label {
       display: block;
       margin-bottom: 0.5rem;
-      color: #555;
+      color: var(--text-color);
       font-weight: 500;
     }
 
     .form-control {
       width: 100%;
       padding: 0.75rem;
-      border: 1px solid #ddd;
+      border: 1px solid var(--border-color);
       border-radius: 4px;
       font-size: 1rem;
       font-family: inherit;
       transition: border-color 0.3s;
+      background-color: var(--card-bg);
+      color: var(--text-color);
 
       &:focus {
         outline: none;
@@ -168,7 +172,8 @@
       }
 
       &::placeholder {
-        color: #999;
+        color: var(--text-color);
+        opacity: 0.6;
       }
     }
 

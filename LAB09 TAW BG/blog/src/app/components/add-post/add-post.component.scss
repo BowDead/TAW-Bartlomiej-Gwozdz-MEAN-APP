@@ -2,13 +2,13 @@
   max-width: 800px;
   margin: 2rem auto;
   padding: 2rem;
-  background-color: #ffffff;
+  background-color: var(--card-bg);
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 
   h2 {
     margin-bottom: 1.5rem;
-    color: #2c3e50;
+    color: var(--text-color);
     font-size: 1.8rem;
     text-align: center;
   }
@@ -44,7 +44,7 @@
     label {
       display: block;
       margin-bottom: 0.5rem;
-      color: #555;
+      color: var(--text-color);
       font-weight: 600;
       font-size: 0.95rem;
     }
@@ -52,12 +52,14 @@
     .form-control {
       width: 100%;
       padding: 0.75rem;
-      border: 2px solid #ddd;
+      border: 2px solid var(--border-color);
       border-radius: 4px;
       font-size: 1rem;
       font-family: inherit;
       transition: all 0.3s;
       box-sizing: border-box;
+      background-color: var(--card-bg);
+      color: var(--text-color);
 
       &:focus {
         outline: none;
@@ -74,7 +76,8 @@
       }
 
       &::placeholder {
-        color: #999;
+        color: var(--text-color);
+        opacity: 0.6;
       }
     }
 
@@ -101,7 +104,8 @@
     .help-text {
       display: block;
       margin-top: 0.5rem;
-      color: #666;
+      color: var(--text-color);
+      opacity: 0.7;
       font-size: 0.85rem;
       font-style: italic;
     }
@@ -117,7 +121,7 @@
         gap: 0.5rem;
         cursor: pointer;
         font-weight: normal;
-        color: #333;
+        color: var(--text-color);
         
         input[type="radio"] {
           cursor: pointer;
@@ -151,8 +155,8 @@
   .image-preview-container {
     margin-top: 0.5rem;
     padding: 1rem;
-    background-color: #f8f9fa;
-    border: 2px dashed #ddd;
+    background-color: var(--card-bg);
+    border: 2px dashed var(--border-color);
     border-radius: 4px;
     text-align: center;
 
