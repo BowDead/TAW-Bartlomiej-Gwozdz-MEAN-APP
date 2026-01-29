@@ -35,7 +35,11 @@ export class BlogItemDetailsComponent implements OnInit {
         this.image = res.image;
         this.text = res.text;
         this.title = res.title;
-        this.author = res.author || 'Nieznany autor';
+        if (res.userId && typeof res.userId === 'object' && res.userId.name) {
+          this.author = res.userId.name;
+        } else {
+          this.author = res.author || 'Nieznany autor';
+        }
       });
     });
   }

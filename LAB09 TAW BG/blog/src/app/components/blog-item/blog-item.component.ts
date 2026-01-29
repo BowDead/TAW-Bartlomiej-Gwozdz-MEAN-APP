@@ -95,7 +95,16 @@ export class BlogItemComponent implements OnChanges {
     }
     // Dodałem usunięcie posta, bo ciężko było mi używać bloga bez tego
     const currentUser = this.authService.currentUser;
-    return currentUser && currentUser.userId === this.userId && this.authService.isLoggedIn();
+    if (!currentUser) {
+      return false;
+    }
+    
+    // userId może być stringiem lub obiektem (po populate w backendzie, ale przynajmniej pokazuje kto post stworzyl)
+    const userIdToCompare = typeof this.userId === 'object' && this.userId !== null && '_id' in this.userId 
+      ? (this.userId as any)._id 
+      : this.userId;
+    
+    return currentUser.userId === userIdToCompare && this.authService.isLoggedIn();
   }
 
 }

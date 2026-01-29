@@ -255,6 +255,29 @@ class PostController implements Controller {
             return response.status(400).json({ error: 'Invalid ID format' });
         }
         try {
+            // Pobiera ID użytkownika z tokenu logowania
+            const userId = this.getUserIdFromToken(request);
+            
+            // Pobranie posta, aby sprawdzić czy użytkownik go posiada
+            const post = await this.dataService.getById(id);
+            if (!post) {
+                return response.status(404).json({ error: 'Post not found' });
+            }
+            
+            // Sprawdzenie czy post należy do użytkownika lub czy jest bez autora
+            let postUserId: string | null = null;
+            if (post.userId) {
+                if (typeof post.userId === 'object' && post.userId !== null) {
+                    postUserId = (post.userId as any)._id?.toString() || null;
+                } else {
+                    postUserId = post.userId.toString();
+                }
+            }
+            
+            if (postUserId && userId && postUserId !== userId) {
+                return response.status(403).json({ error: 'You do not have permission to delete this post' });
+            }
+            
             await this.dataService.deleteById(id);
             response.status(200).json({ message: 'Post deleted successfully' });
         } catch (error) {

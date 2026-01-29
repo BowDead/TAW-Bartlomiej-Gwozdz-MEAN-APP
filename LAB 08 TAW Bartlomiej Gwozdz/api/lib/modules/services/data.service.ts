@@ -33,7 +33,7 @@ class DataService {
 
     public async getById(id: string) {
         try {
-            const result = await PostModel.findById(id, { __v: 0 });
+            const result = await PostModel.findById(id, { __v: 0 }).populate('userId', 'name email');
             return result;
         } catch (error) {
             console.error('Wystąpił błąd podczas pobierania danych:', error);
@@ -52,7 +52,7 @@ class DataService {
 
     public async getAll() {
         try {
-            const result = await PostModel.find({}, { __v: 0 });
+            const result = await PostModel.find({}, { __v: 0 }).populate('userId', 'name email');
             return result;
         } catch (error) {
             console.error('Wystąpił błąd podczas pobierania wszystkich danych:', error);
@@ -71,7 +71,7 @@ class DataService {
 
     public async getPostsByUserId(userId: string) {
         try {
-            const result = await PostModel.find({ userId }, { __v: 0 });
+            const result = await PostModel.find({ userId }, { __v: 0 }).populate('userId', 'name email');
             return result;
         } catch (error) {
             console.error('Wystąpił błąd podczas pobierania postów użytkownika:', error);
