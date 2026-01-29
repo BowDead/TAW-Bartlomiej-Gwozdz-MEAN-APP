@@ -1,0 +1,24 @@
+<section class="container mt-5">
+  <h2>Rejestracja</h2>
+  <form autocomplete="off">
+	<div class="mb-3">
+  	<label class="form-label">Email <span class="text-danger">*</span></label>
+  	<input type="email" class="form-control" [(ngModel)]="credentials.email"
+         	name="email" placeholder="Wpisz email">
+	</div>
+	<div class="mb-3">
+  	<label class="form-label">Hasło <span class="text-danger">*</span></label>
+  	<input type="password" class="form-control" [(ngModel)]="credentials.password"
+         	name="password" placeholder="Wpisz hasło (5-15 znaków)">
+	</div>
+	<div class="mb-3">
+  	<label class="form-label">Imię <span class="text-danger">*</span></label>
+  	<input type="text" class="form-control" [(ngModel)]="credentials.name"
+         	name="name" placeholder="Wpisz imię">
+	</div>
+	<button (click)="create()" type="button" class="btn btn-primary">
+  	Sign Up
+	</button>
+  </form>
+</section>
+

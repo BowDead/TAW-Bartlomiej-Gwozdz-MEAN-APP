@@ -1,0 +1,20 @@
+<div class="favorites">
+  <h2>Ulubione posty</h2>
+
+  <p *ngIf="!loading && favoriteIds.length === 0" class="empty">Brak ulubionych postów.</p>
+  <p *ngIf="loading">Ładowanie...</p>
+
+  <div class="favorites-grid" *ngIf="!loading && items.length > 0">
+    <blog-item
+      *ngFor="let item of items; trackBy: trackById"
+      [image]="item.image"
+      [title]="item.title"
+      [text]="item.text"
+      [id]="item.id"
+      [userId]="item.userId"
+      (favoriteChange)="handleFavoriteChange()"
+      (hiddenChange)="handleHiddenChange($event)"
+      (postDeleted)="handlePostDeleted($event)">
+    </blog-item>
+  </div>
+</div>

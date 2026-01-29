@@ -1,0 +1,20 @@
+<div class="hidden-posts">
+  <h2>Ukryte posty</h2>
+
+  <p *ngIf="!loading && hiddenIds.length === 0" class="empty">Brak ukrytych postów.</p>
+  <p *ngIf="loading">Ładowanie...</p>
+
+  <div class="hidden-posts-grid" *ngIf="!loading && items.length > 0">
+    <blog-item
+      *ngFor="let item of items; trackBy: trackById"
+      [image]="item.image"
+      [title]="item.title"
+      [text]="item.text"
+      [id]="item.id"
+      [userId]="item.userId"
+      (favoriteChange)="handleHiddenChange()"
+      (hiddenChange)="handleHiddenChange()"
+      (postDeleted)="handlePostDeleted($event)">
+    </blog-item>
+  </div>
+</div>

@@ -1,0 +1,40 @@
+<div class="card">
+  <blog-item-image [image]="image"/>
+  <div class="card-body">
+    <div class="card-title-row">
+      <h5 class="card-title">{{ title | summary:10 }}</h5>
+      <div class="icons-container">
+        <i
+          class="fa favorite-icon"
+          [ngClass]="{ 'fa-heart': isFavorite, 'fa-heart-o': !isFavorite }"
+          (click)="toggleFavorite($event)"
+          aria-label="Przełącz ulubione"
+          role="button"
+          title="Dodaj do ulubionych">
+        </i>
+        <i
+          class="fa hidden-icon"
+          [ngClass]="{ 'fa-eye-slash': isHidden, 'fa-eye': !isHidden }"
+          (click)="toggleHidden($event)"
+          aria-label="Przełącz ukrycie"
+          role="button"
+          title="Ukryj post">
+        </i>
+        <i
+          *ngIf="isPostOwner()"
+          class="fa fa-trash delete-icon"
+          (click)="deletePost($event)"
+          aria-label="Usuń post"
+          role="button"
+          title="Usuń post">
+        </i>
+      </div>
+    </div>
+    <div class="card-text">
+      <blog-item-text [text]="text" [id]="id"/>
+    </div>
+    <div class="card-rating">
+      <app-rating [postId]="id ?? ''" [readonly]="false"></app-rating>
+    </div>
+  </div>
+</div>

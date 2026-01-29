@@ -1,0 +1,100 @@
+.card {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	background-color: var(--card-bg);
+	border: 1px solid var(--border-color);
+	transition: all 0.3s ease;
+	color: var(--text-color);
+
+	&:hover {
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+		transform: translateY(-2px);
+	}
+}
+
+.card-body {
+	background-color: var(--card-bg);
+	color: var(--text-color);
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+}
+
+.card-title {
+	color: var(--text-color);
+}
+
+.card-title-row {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.5rem;
+}
+
+.icons-container {
+	display: flex;
+	gap: 0.5rem;
+	align-items: center;
+}
+
+.favorite-icon {
+	cursor: pointer;
+	color: #ff4757;
+	transition: all 0.2s ease;
+
+	&:hover {
+		transform: scale(1.2);
+	}
+
+	&.fa-heart {
+		color: #ff4757;
+	}
+
+	&.fa-heart-o {
+		color: var(--text-color);
+		opacity: 0.6;
+	}
+}
+
+.hidden-icon {
+	cursor: pointer;
+	color: #9e9e9e;
+	transition: all 0.2s ease;
+
+	&:hover {
+		transform: scale(1.2);
+	}
+
+	&.fa-eye-slash {
+		color: #616161;
+	}
+
+	&.fa-eye {
+		color: var(--text-color);
+		opacity: 0.6;
+	}
+}
+
+.delete-icon {
+	cursor: pointer;
+	color: #ff6b6b;
+	transition: all 0.2s ease;
+
+	&:hover {
+		transform: scale(1.2);
+		color: #ff0000;
+	}
+}
+
+.card-rating {
+	margin-top: 1rem;
+	padding-top: 1rem;
+	border-top: 1px solid var(--border-color);
+}
+
+.card-text {
+	color: var(--text-color);
+	flex: 1;
+}

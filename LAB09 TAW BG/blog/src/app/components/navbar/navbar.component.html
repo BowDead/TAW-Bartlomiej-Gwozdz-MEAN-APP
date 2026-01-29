@@ -1,0 +1,48 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+	<a class="navbar-brand" [routerLink]="['/']">Blog</a>
+	<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarContent">
+  	<span class="navbar-toggler-icon"></span>
+	</button>
+	<div class="collapse navbar-collapse" id="navbarContent">
+  	<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+    	<li class="nav-item">
+      	<a class="nav-link" [routerLink]="['/']">Home</a>
+    	</li>
+    	@if (authService.isLoggedIn()) {
+      	<li class="nav-item">
+        	<a class="nav-link" [routerLink]="['/blog']">Blog</a>
+      	</li>
+      	<li class="nav-item">
+        	<a class="nav-link" [routerLink]="['/add-post']">Dodaj post</a>
+      	</li>
+      	<li class="nav-item">
+        	<a class="nav-link" [routerLink]="['/gallery']">Galeria</a>
+      	</li>
+      	<li class="nav-item">
+        	<a class="nav-link" [routerLink]="['/favorites']">Ulubione</a>
+      	</li>
+      	<li class="nav-item">
+        	<a class="nav-link" [routerLink]="['/hidden']">Ukryte</a>
+      	</li>
+      	<li class="nav-item">
+        	<a class="nav-link" [routerLink]="['/profile']">Profil</a>
+      	</li>
+    	}
+  	</ul>
+  	<div class="d-flex align-items-center">
+    	<app-theme-toggle class="me-3"></app-theme-toggle>
+    	@if (!authService.isLoggedIn()) {
+      	<a class="btn btn-outline-primary me-2" [routerLink]="['/login']">Login</a>
+      	<a class="btn btn-primary" [routerLink]="['/signup']">Sign Up</a>
+    	} @else {
+      	<button class="btn btn-outline-secondary" (click)="signOut()">
+        	Wyloguj
+      	</button>
+    	}
+  	</div>
+	</div>
+  </div>
+</nav>
+

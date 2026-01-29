@@ -1,0 +1,110 @@
+.blog-layout {
+  width: min(1200px, 100%);
+  margin: 0 auto;
+  padding: 0 1.5rem 2rem;
+}
+
+.sort-controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 0 auto 2rem;
+  padding: 1rem;
+  background: var(--card-bg);
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+
+  label {
+    font-weight: 600;
+    color: var(--text-color);
+  }
+
+  button {
+    padding: 0.5rem 1rem;
+    background-color: var(--bg-color);
+    border: 2px solid var(--border-color);
+    border-radius: 4px;
+    color: var(--text-color);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+
+    &:hover {
+      border-color: var(--primary-color);
+      color: var(--primary-color);
+    }
+
+    &.active {
+      background-color: var(--primary-color);
+      border-color: var(--primary-color);
+      color: white;
+    }
+  }
+}
+
+.empty-message {
+  text-align: center;
+  color: var(--text-color);
+  opacity: 0.7;
+  padding: 2rem;
+  font-size: 1.1rem;
+}
+
+.posts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.5rem;
+  align-items: stretch;
+  margin: 0 auto 2rem;
+}
+
+.view-toggle {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin: 2rem auto;
+  max-width: 600px;
+  padding: 0 1rem;
+
+  .toggle-btn {
+    flex: 1;
+    padding: 0.875rem 1.5rem;
+    background-color: var(--card-bg);
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: var(--text-color);
+
+    &:hover {
+      background-color: var(--border-color);
+      border-color: var(--primary-color);
+      transform: translateY(-2px);
+    }
+
+    &.active {
+      background-color: var(--primary-color);
+      border-color: var(--primary-color);
+      color: white;
+      box-shadow: 0 4px 8px rgba(79, 163, 255, 0.3);
+    }
+
+    &:focus {
+      outline: 3px solid var(--primary-color);
+      outline-offset: 2px;
+    }
+  }
+}
+
+.bc {
+  margin: 10px auto;
+  text-align: center;
+  font-weight: bolder;
+  font-size: larger;
+  display: grid;
+  grid-row: 2;
+  max-width: 600px;
+}

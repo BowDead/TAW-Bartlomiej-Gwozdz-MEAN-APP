@@ -1,0 +1,43 @@
+@if (!items$) {
+  <p>Loading...</p>
+}
+@else {
+  <div class="blog-layout">
+    <div class="sort-controls">
+      <label>Sortuj po:</label>
+      <button [class.active]="sortBy === 'default'" (click)="setSortBy('default')">Domyślnie</button>
+      <button [class.active]="sortBy === 'rating'" (click)="setSortBy('rating')">Ocenie</button>
+    </div>
+
+    @if ((sortedItems | filter: filterText).length === 0) {
+      <p class="empty-message">
+        Brak wyników spełniających kryteria wyszukiwania
+      </p>
+    }
+
+    <div class="posts-grid">
+      @for (
+        item of ((sortedItems | filter: filterText) | paginate: currentPage : itemsPerPage);
+        track item.id || $index
+      ) {
+        <blog-item
+          [image]="item.image"
+          [title]="item.title"
+          [text]="item.text"
+          [id]="item.id"
+          [userId]="item.userId"
+          (hiddenChange)="handleHiddenChange($event)"
+          (postDeleted)="handlePostDeleted($event)">
+        </blog-item>
+      }
+    </div>
+
+    <!-- PAGINACJA -->
+    <app-pagination
+      [totalItems]="(sortedItems | filter: filterText).length"
+      [itemsPerPage]="itemsPerPage"
+      [currentPage]="currentPage"
+      (pageChange)="onPageChange($event)">
+    </app-pagination>
+  </div>
+}

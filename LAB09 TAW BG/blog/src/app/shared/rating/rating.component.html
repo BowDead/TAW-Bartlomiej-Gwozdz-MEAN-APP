@@ -1,0 +1,15 @@
+<div class="rating">
+  @for (star of stars; track star) {
+    <i class="fa"
+       [ngClass]="{
+         'fa-star': star <= (hoverRating || currentRating),
+         'fa-star-o': star > (hoverRating || currentRating)
+       }"
+       (mouseenter)="onStarHover(star)"
+       (mouseleave)="hoverRating = 0"
+       (click)="onStarClick(star)"
+       [class.readonly]="readonly">
+    </i>
+  }
+  <span class="rating-info">({{ averageRating | number:'1.1-1' }} / {{ votesCount }} głosów)</span>
+</div>

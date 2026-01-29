@@ -1,0 +1,145 @@
+<div class="add-post-container">
+  <h2>Dodaj nowy post</h2>
+
+  @if (showSuccessMessage) {
+    <div class="success-message">
+      ✓ Post został pomyślnie dodany!
+    </div>
+  }
+
+  <form [formGroup]="postForm" (ngSubmit)="onSubmit()" class="post-form">
+    <div class="form-group">
+      <label for="title">Tytuł posta *</label>
+      <input 
+        id="title" 
+        type="text" 
+        formControlName="title" 
+        class="form-control"
+        [class.is-invalid]="isSubmitted && f['title'].errors"
+        placeholder="Wprowadź tytuł posta"
+      />
+      @if (isSubmitted && f['title'].errors) {
+        <div class="error-message">
+          @if (f['title'].errors['required']) {
+            <div>Tytuł jest wymagany</div>
+          }
+          @if (f['title'].errors['minlength']) {
+            <div>Tytuł musi mieć minimum 3 znaki</div>
+          }
+        </div>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="text">Treść posta *</label>
+      <textarea 
+        id="text" 
+        formControlName="text" 
+        class="form-control"
+        [class.is-invalid]="isSubmitted && f['text'].errors"
+        rows="6"
+        placeholder="Wprowadź treść posta"
+      ></textarea>
+      @if (isSubmitted && f['text'].errors) {
+        <div class="error-message">
+          @if (f['text'].errors['required']) {
+            <div>Treść jest wymagana</div>
+          }
+          @if (f['text'].errors['minlength']) {
+            <div>Treść musi mieć minimum 10 znaków</div>
+          }
+        </div>
+      }
+    </div>
+
+    <div class="form-group">
+      <label>Źródło obrazka *</label>
+      <div class="image-source-selector">
+        <label class="radio-option">
+          <input 
+            type="radio" 
+            name="imageSource" 
+            value="url" 
+            [checked]="imageSource === 'url'"
+            (change)="onImageSourceChange('url')"
+          />
+          URL
+        </label>
+        <label class="radio-option">
+          <input 
+            type="radio" 
+            name="imageSource" 
+            value="file" 
+            [checked]="imageSource === 'file'"
+            (change)="onImageSourceChange('file')"
+          />
+          Plik z komputera
+        </label>
+      </div>
+    </div>
+
+    @if (imageSource === 'url') {
+      <div class="form-group">
+        <label for="image">URL obrazka *</label>
+        <input 
+          id="image" 
+          type="text" 
+          formControlName="image" 
+          class="form-control"
+          [class.is-invalid]="isSubmitted && f['image'].errors"
+          placeholder="https://example.com/image.jpg"
+        />
+        @if (isSubmitted && f['image'].errors) {
+          <div class="error-message">
+            @if (f['image'].errors['required']) {
+              <div>URL obrazka jest wymagany</div>
+            }
+            @if (f['image'].errors['pattern']) {
+              <div>Wprowadź poprawny URL (http:// lub https://)</div>
+            }
+          </div>
+        }
+      </div>
+    }
+
+    @if (imageSource === 'file') {
+      <div class="form-group">
+        <label for="imageFile">Wybierz obrazek *</label>
+        <input 
+          id="imageFile" 
+          type="file" 
+          accept="image/*"
+          class="form-control file-input"
+          (change)="onFileSelected($event)"
+        />
+        <small class="help-text">Maksymalny rozmiar: 5MB. Dozwolone formaty: JPG, PNG, GIF, WEBP</small>
+      </div>
+    }
+
+    @if (imagePreview) {
+      <div class="form-group">
+        <label>Podgląd obrazka:</label>
+        <div class="image-preview-container">
+          <img [src]="imagePreview" alt="Podgląd" class="image-preview" />
+        </div>
+      </div>
+    }
+
+    <div class="form-actions">
+      <button 
+        type="submit" 
+        class="btn-submit"
+        [disabled]="isSubmitted && postForm.invalid"
+      >
+        Dodaj post
+      </button>
+      <button 
+        type="button" 
+        class="btn-reset"
+        (click)="postForm.reset(); isSubmitted = false; imagePreview = null; selectedFile = null; imageSource = 'url'"
+      >
+        Wyczyść
+      </button>
+    </div>
+  </form>
+</div>

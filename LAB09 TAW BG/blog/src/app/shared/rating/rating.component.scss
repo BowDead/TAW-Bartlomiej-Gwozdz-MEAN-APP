@@ -1,0 +1,37 @@
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  user-select: none;
+
+  .fa {
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--text-color);
+    transition: all 0.2s ease;
+
+    &:hover:not(.readonly) {
+      color: #ffc107;
+      transform: scale(1.2);
+    }
+
+    &.fa-star {
+      color: #ffc107;
+    }
+
+    &.fa-star-o {
+      color: var(--border-color);
+    }
+
+    &.readonly {
+      cursor: default;
+    }
+  }
+
+  .rating-info {
+    font-size: 0.875rem;
+    color: var(--text-color);
+    margin-left: 0.5rem;
+    opacity: 0.8;
+  }
+}

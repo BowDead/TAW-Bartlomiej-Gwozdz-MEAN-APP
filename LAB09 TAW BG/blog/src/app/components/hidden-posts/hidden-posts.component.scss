@@ -1,0 +1,23 @@
+.hidden-posts {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  h2 {
+    margin-bottom: 20px;
+    color: #333;
+  }
+
+  .empty {
+    text-align: center;
+    color: #666;
+    padding: 40px 20px;
+    font-size: 16px;
+  }
+}
+
+.hidden-posts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}

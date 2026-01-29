@@ -1,0 +1,108 @@
+<div class="profile-container">
+  <div class="profile-header">
+    <h1>Profil użytkownika</h1>
+  </div>
+
+  <div *ngIf="loading" class="loading">
+    <p>Ładowanie profilu...</p>
+  </div>
+
+  <div *ngIf="errorMessage && !loading" class="alert alert-error">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="successMessage" class="alert alert-success">
+    {{ successMessage }}
+  </div>
+
+  <div *ngIf="userProfile && !loading" class="profile-content">
+    <!-- Profile Information -->
+    <div class="profile-info-section">
+      <h2>Informacje o profilu</h2>
+      
+      <div class="info-card" *ngIf="!isEditMode">
+        <div class="info-row">
+          <span class="info-label">Nazwa użytkownika:</span>
+          <span class="info-value">{{ userProfile.name }}</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Email:</span>
+          <span class="info-value">{{ userProfile.email }}</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Data rejestracji:</span>
+          <span class="info-value">{{ formatDate(userProfile.createdAt) }}</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Liczba postów:</span>
+          <span class="info-value">{{ userProfile.postsCount }}</span>
+        </div>
+        
+        <button class="btn btn-primary" (click)="toggleEditMode()">
+          Edytuj profil
+        </button>
+      </div>
+
+      <!-- Edit Form -->
+      <div class="edit-card" *ngIf="isEditMode">
+        <form (ngSubmit)="saveProfile()">
+          <div class="form-group">
+            <label for="name">Nazwa użytkownika:</label>
+            <input 
+              type="text" 
+              id="name" 
+              [(ngModel)]="editForm.name" 
+              name="name"
+              class="form-control"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email:</label>
+            <input 
+              type="email" 
+              id="email" 
+              [(ngModel)]="editForm.email" 
+              name="email"
+              class="form-control"
+              required
+            />
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn-success">
+              Zapisz zmiany
+            </button>
+            <button type="button" class="btn btn-secondary" (click)="toggleEditMode()">
+              Anuluj
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- User Posts -->
+    <div class="user-posts-section">
+      <h2>Moje posty ({{ userProfile.postsCount }})</h2>
+      
+      <div *ngIf="userProfile.posts.length === 0" class="no-posts">
+        <p>Nie masz jeszcze żadnych postów.</p>
+        <a routerLink="/add-post" class="btn btn-primary">Dodaj pierwszy post</a>
+      </div>
+
+      <div class="posts-grid" *ngIf="userProfile.posts.length > 0">
+        <div class="post-card" *ngFor="let post of userProfile.posts">
+          <img [src]="post.image" [alt]="post.title" class="post-image" />
+          <div class="post-content">
+            <h3>{{ post.title }}</h3>
+            <p class="post-text">{{ post.text }}</p>
+            <a [routerLink]="['/blog/detail', post._id]" class="btn btn-link">
+              Zobacz szczegóły
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

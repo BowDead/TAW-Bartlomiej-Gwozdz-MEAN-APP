@@ -1,0 +1,9 @@
+<div class="blog-home">
+	<search-bar (name)="getName($event)"></search-bar>
+
+	<div class="actions">
+		<button (click)="blogCmp.getAll()">Odśwież posty</button>
+	</div>
+
+	<blog #blogCmp [filterText]="filterText"></blog>
+</div>

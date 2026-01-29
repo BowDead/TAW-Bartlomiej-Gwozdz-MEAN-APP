@@ -1,0 +1,23 @@
+.theme-toggle {
+  background: none;
+  border: none;
+  color: var(--text-color);
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    transform: rotate(20deg);
+    color: #ffc107;
+  }
+
+  i {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

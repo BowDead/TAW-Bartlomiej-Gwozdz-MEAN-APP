@@ -1,0 +1,74 @@
+<div class="comments-section">
+  <h3>Komentarze ({{ comments.length }})</h3>
+  
+  @if (errorMessage) {
+    <div class="error-message">{{ errorMessage }}</div>
+  }
+
+  @if (isLoading) {
+    <div class="loading">Ładowanie...</div>
+  }
+  
+  <div class="comments-list">
+    @for (comment of comments; track comment._id) {
+      <div class="comment-item">
+        <div class="comment-header">
+          <div class="comment-author-info">
+            <strong class="comment-author">{{ comment.author }}</strong>
+            <span class="comment-date">{{ comment.createdAt | date:'short' }}</span>
+          </div>
+          @if (canDeleteComment(comment)) {
+            <button 
+              class="btn-delete" 
+              (click)="deleteComment(comment._id!, comment.authorId)"
+              title="Usuń komentarz"
+            >
+              ✕
+            </button>
+          }
+        </div>
+        <p class="comment-content">{{ comment.content }}</p>
+      </div>
+    }
+    
+    @if (comments.length === 0 && !isLoading) {
+      <div class="no-comments">
+        Brak komentarzy. Bądź pierwszy!
+      </div>
+    }
+  </div>
+
+  <div class="add-comment-form">
+    <h4>Dodaj komentarz</h4>
+    
+    @if (!isLoggedIn) {
+      <p class="login-message">Zaloguj się, aby dodać komentarz.</p>
+    }
+    
+    @if (isLoggedIn) {
+      <div class="current-user">
+        <span>Komentujesz jako: <strong>{{ currentUserName }}</strong></span>
+      </div>
+    }
+    
+    <div class="form-group">
+      <label for="content-{{ postId }}">Komentarz:</label>
+      <textarea 
+        id="content-{{ postId }}"
+        [(ngModel)]="newCommentContent" 
+        placeholder="Napisz komentarz..."
+        rows="4"
+        class="form-control"
+        [disabled]="!isLoggedIn || isLoading"
+      ></textarea>
+    </div>
+    
+    <button 
+      (click)="addComment()" 
+      [disabled]="!isLoggedIn || !newCommentContent.trim() || isLoading"
+      class="btn-submit"
+    >
+      {{ isLoading ? 'Dodawanie...' : 'Dodaj komentarz' }}
+    </button>
+  </div>
+</div>

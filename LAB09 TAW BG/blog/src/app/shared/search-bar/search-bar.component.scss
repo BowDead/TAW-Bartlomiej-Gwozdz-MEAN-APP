@@ -1,0 +1,29 @@
+.search-bar {
+  margin: 1rem 0;
+  padding: 1rem;
+  background-color: var(--card-bg);
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+
+  input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    border: 2px solid var(--border-color);
+    border-radius: 4px;
+    transition: all 0.3s ease;
+
+    &:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(79, 163, 255, 0.1);
+    }
+
+    &::placeholder {
+      color: var(--secondary-color);
+      opacity: 0.7;
+    }
+  }
+}
