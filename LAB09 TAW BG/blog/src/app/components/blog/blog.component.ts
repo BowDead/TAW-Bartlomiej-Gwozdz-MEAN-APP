@@ -47,7 +47,7 @@ export class BlogComponent implements OnInit, OnDestroy {
     console.log('Po zmianie currentPage:', this.currentPage);
     console.log('Sorted items:', this.sortedItems.length);
     
-    // Scroll do góry strony
+    // Scroll do góry strony jak strone zmienie, u mnie mało znaczne, bo większość mi się mieści na jednym ekranie a posty mam w jednej linii
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 

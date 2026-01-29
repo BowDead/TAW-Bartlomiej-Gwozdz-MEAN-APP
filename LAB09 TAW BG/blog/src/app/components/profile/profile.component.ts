@@ -61,7 +61,7 @@ export class ProfileComponent implements OnInit {
     this.successMessage = '';
     
     if (!this.isEditMode && this.userProfile) {
-      // Reset form when cancelling
+      // Można anulować dzięki temu zmiane nazwy lub maila
       this.editForm.name = this.userProfile.name;
       this.editForm.email = this.userProfile.email;
     }

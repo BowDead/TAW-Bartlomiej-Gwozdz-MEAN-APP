@@ -67,7 +67,7 @@ export class CommentsSectionComponent implements OnInit {
   deleteComment(commentId: string, commentAuthorId?: string): void {
     const currentUser = this.authService.currentUser;
     
-    // Check if user is logged in and is the author
+    // Sprawdzanie czy jest zalogowny i zgodny z autorem
     if (!currentUser || (commentAuthorId && currentUser.userId !== commentAuthorId)) {
       this.errorMessage = 'Nie masz uprawnień do usunięcia tego komentarza';
       return;
@@ -92,7 +92,7 @@ export class CommentsSectionComponent implements OnInit {
     const currentUser = this.authService.currentUser;
     if (!currentUser) return false;
     
-    // User can delete if they are the author
+    // To umożliwia usunięcie posta tylko jak user jest zgodny z autorem
     return comment.authorId === currentUser.userId;
   }
 

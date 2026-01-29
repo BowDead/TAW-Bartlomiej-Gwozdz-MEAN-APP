@@ -30,16 +30,16 @@ class UserController implements Controller {
                 return response.status(400).json({ error: 'Name, email, and password are required' });
             }
 
-            // Check if user already exists
+            // Sprawdzanie czy taki user już istnieje
             const existingUser = await this.userService.findUserByEmail(email);
             if (existingUser) {
                 return response.status(409).json({ error: 'User with this email already exists' });
             }
 
-            // Hash password
+            // Kryttograficzne tworzenie skrótu, czyli inaczej haszowanie
             const hashedPassword = await bcrypt.hash(password, 10);
 
-            // Create user
+            // tworzenie użytkownika
             const user = await this.userService.createUser({
                 name,
                 email,
@@ -64,19 +64,19 @@ class UserController implements Controller {
                 return response.status(400).json({ error: 'Login and password are required' });
             }
 
-            // Find user by email
+            // szukanie po podanym mailu (nie koniecznie prawdziwym)
             const user = await this.userService.findUserByEmail(login);
             if (!user) {
                 return response.status(401).json({ error: 'Invalid credentials' });
             }
 
-            // Verify password
+            // Sprawdzenie hasła
             const isPasswordValid = await bcrypt.compare(password, user.password);
             if (!isPasswordValid) {
                 return response.status(401).json({ error: 'Invalid credentials' });
             }
 
-            // Generate JWT token
+            // Tworzenie tokenu JWT
             const token = jwt.sign(
                 { 
                     userId: user._id, 
@@ -103,10 +103,6 @@ class UserController implements Controller {
         try {
             const { id } = request.params;
             
-            // In a JWT-based auth system, logout is primarily handled client-side
-            // by removing the token. This endpoint is here for compatibility
-            // and could be extended to implement token blacklisting if needed.
-            
             response.status(200).json({ 
                 message: 'Logged out successfully' 
             });
@@ -125,7 +121,6 @@ class UserController implements Controller {
                 return response.status(404).json({ error: 'User not found' });
             }
 
-            // Import DataService dynamically to avoid circular dependencies
             const DataService = (await import('../modules/services/data.service')).default;
             const dataService = new DataService();
             const userPosts = await dataService.getPostsByUserId(id);

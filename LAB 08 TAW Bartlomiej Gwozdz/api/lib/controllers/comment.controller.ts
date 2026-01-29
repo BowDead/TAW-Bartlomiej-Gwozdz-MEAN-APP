@@ -22,7 +22,7 @@ class CommentController implements Controller {
         // Delete a comment
         this.router.delete(`${this.path}/:id`, this.deleteComment);
         
-        // Get all comments (optional - for admin purposes)
+        // Get all comments (nie używam, ale zostawiłem)
         this.router.get(`${this.path}`, this.getAllComments);
     }
 
@@ -63,7 +63,7 @@ class CommentController implements Controller {
     private deleteComment = async (request: Request, response: Response, next: NextFunction): Promise<void> => {
         try {
             const { id } = request.params;
-            const { userId } = request.body; // Optional: for authorization
+            const { userId } = request.body;
 
             if (!isValidObjectId(id)) {
                 response.status(400).json({ message: 'Invalid comment ID' });

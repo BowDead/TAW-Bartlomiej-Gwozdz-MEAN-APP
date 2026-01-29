@@ -65,13 +65,13 @@ export class AddPostComponent {
     if (input.files && input.files[0]) {
       const file = input.files[0];
       
-      // Validate file type
+      // Czy dobry plik
       if (!file.type.startsWith('image/')) {
         alert('Proszę wybrać plik obrazu');
         return;
       }
       
-      // Validate file size (max 5MB)
+      // Ograniczenie do 5MB
       if (file.size > 5 * 1024 * 1024) {
         alert('Plik jest za duży. Maksymalny rozmiar to 5MB');
         return;
@@ -79,14 +79,14 @@ export class AddPostComponent {
       
       this.selectedFile = file;
       
-      // Create preview
+      // Podgląd obrazu 
       const reader = new FileReader();
       reader.onload = (e) => {
         this.imagePreview = e.target?.result as string;
       };
       reader.readAsDataURL(file);
       
-      // Set form value to indicate file is selected
+      // Zaznaczenie, czy obraz jest wybrany
       this.postForm.get('image')?.setValue('file-upload');
     }
   }
@@ -98,7 +98,7 @@ export class AddPostComponent {
       return;
     }
 
-    // Check if file is required but not selected
+    // Bez pliku obrazu nie opublikujesz posta
     if (this.imageSource === 'file' && !this.selectedFile) {
       alert('Proszę wybrać plik obrazu');
       return;
@@ -106,7 +106,7 @@ export class AddPostComponent {
 
     const { title, text, image } = this.postForm.value;
     
-    // If file is selected, use the base64 preview as image
+    // Pokazanie previev obrazu w base64, dla sprawdzenia
     const finalImage = this.imageSource === 'file' ? this.imagePreview : image;
     const post = { title, text, image: finalImage };
 

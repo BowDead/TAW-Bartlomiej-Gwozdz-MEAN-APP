@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {SearchBarComponent} from "../../shared/search-bar/search-bar.component";
 import {BlogComponent} from "../blog/blog.component";
-
+//domyślna lokacja, nic tam interesującego ni ma
 @Component({
   selector: 'blog-home',
   standalone: true,

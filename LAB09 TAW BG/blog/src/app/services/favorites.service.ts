@@ -63,7 +63,7 @@ export class FavoritesService {
     try {
       localStorage.setItem(this.STORAGE_KEY, JSON.stringify(favorites));
     } catch {
-      // Ignore quota or serialization errors
+      // Jak są jakieś błędy to przynajmniej mi tu nie wywali
     }
   }
 }
