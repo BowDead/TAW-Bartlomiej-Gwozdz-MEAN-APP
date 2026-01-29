@@ -5,4 +5,6 @@ export interface IUser extends Document {
     email: string;
     password: string;
     createdAt?: Date;
+    favoritePosts?: string[];
+    hiddenPosts?: string[];
 }

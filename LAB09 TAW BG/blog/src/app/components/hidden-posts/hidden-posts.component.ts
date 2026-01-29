@@ -27,32 +27,36 @@ export class HiddenPostsComponent implements OnInit {
   }
 
   refreshHidden(): void {
-    this.hiddenIds = this.hiddenService.getHidden();
+    this.hiddenService.getHidden().subscribe(hidden => {
+      this.hiddenIds = hidden;
 
-    if (this.hiddenIds.length === 0) {
-      this.items = [];
-      this.loading = false;
-      return;
-    }
+      if (this.hiddenIds.length === 0) {
+        this.items = [];
+        this.loading = false;
+        return;
+      }
 
-    this.dataService.getAll().subscribe((response: any) => {
-      const data = Array.isArray(response) ? response : [];
-      const hiddenSet = new Set(this.hiddenIds.map(String));
-      this.items = data.filter(item => item?.id && hiddenSet.has(String(item.id)));
-      this.loading = false;
+      this.dataService.getAll().subscribe((response: any) => {
+        const data = Array.isArray(response) ? response : [];
+        const hiddenSet = new Set(this.hiddenIds.map(String));
+        this.items = data.filter(item => item?.id && hiddenSet.has(String(item.id)));
+        this.loading = false;
+      });
     });
   }
 
   handleHiddenChange(): void {
-    this.hiddenIds = this.hiddenService.getHidden();
-    const hiddenSet = new Set(this.hiddenIds.map(String));
-    this.items = this.items.filter(item => item?.id && hiddenSet.has(String(item.id)));
+    this.hiddenService.getHidden().subscribe(hidden => {
+      this.hiddenIds = hidden;
+      const hiddenSet = new Set(this.hiddenIds.map(String));
+      this.items = this.items.filter(item => item?.id && hiddenSet.has(String(item.id)));
+    });
   }
 
   handlePostDeleted(id: string): void {
     this.items = this.items.filter(item => item?.id !== id);
     this.hiddenIds = this.hiddenIds.filter(hId => hId !== id);
-    this.hiddenService.removeHidden(id);
+    this.hiddenService.removeHidden(id).subscribe();
   }
 
   trackById(_: number, item: any): string | undefined {

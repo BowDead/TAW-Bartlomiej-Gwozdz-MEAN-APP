@@ -30,30 +30,40 @@ export class FavoritesComponent implements OnInit {
   }
 
   refreshFavorites(): void {
-    this.favoriteIds = this.favoritesService.getFavorites();
-    this.hiddenIds = this.hiddenService.getHidden();
+    this.favoritesService.getFavorites().subscribe(favorites => {
+      this.favoriteIds = favorites;
+      
+      this.hiddenService.getHidden().subscribe(hidden => {
+        this.hiddenIds = hidden;
 
-    if (this.favoriteIds.length === 0) {
-      this.items = [];
-      this.loading = false;
-      return;
-    }
+        if (this.favoriteIds.length === 0) {
+          this.items = [];
+          this.loading = false;
+          return;
+        }
 
-    this.dataService.getAll().subscribe((response: any) => {
-      const data = Array.isArray(response) ? response : [];
-      const favoriteSet = new Set(this.favoriteIds.map(String));
-      const hiddenSet = new Set(this.hiddenIds.map(String));
-      this.items = data.filter(item => item?.id && favoriteSet.has(String(item.id)) && !hiddenSet.has(String(item.id)));
-      this.loading = false;
+        this.dataService.getAll().subscribe((response: any) => {
+          const data = Array.isArray(response) ? response : [];
+          const favoriteSet = new Set(this.favoriteIds.map(String));
+          const hiddenSet = new Set(this.hiddenIds.map(String));
+          this.items = data.filter(item => item?.id && favoriteSet.has(String(item.id)) && !hiddenSet.has(String(item.id)));
+          this.loading = false;
+        });
+      });
     });
   }
 
   handleFavoriteChange(): void {
-    this.favoriteIds = this.favoritesService.getFavorites();
-    this.hiddenIds = this.hiddenService.getHidden();
-    const favoriteSet = new Set(this.favoriteIds.map(String));
-    const hiddenSet = new Set(this.hiddenIds.map(String));
-    this.items = this.items.filter(item => item?.id && favoriteSet.has(String(item.id)) && !hiddenSet.has(String(item.id)));
+    this.favoritesService.getFavorites().subscribe(favorites => {
+      this.favoriteIds = favorites;
+      
+      this.hiddenService.getHidden().subscribe(hidden => {
+        this.hiddenIds = hidden;
+        const favoriteSet = new Set(this.favoriteIds.map(String));
+        const hiddenSet = new Set(this.hiddenIds.map(String));
+        this.items = this.items.filter(item => item?.id && favoriteSet.has(String(item.id)) && !hiddenSet.has(String(item.id)));
+      });
+    });
   }
 
   handleHiddenChange(id: string): void {
@@ -63,7 +73,7 @@ export class FavoritesComponent implements OnInit {
   handlePostDeleted(id: string): void {
     this.items = this.items.filter(item => item?.id !== id);
     this.favoriteIds = this.favoriteIds.filter(fId => fId !== id);
-    this.favoritesService.removeFavorite(id);
+    this.favoritesService.removeFavorite(id).subscribe();
   }
 
   trackById(_: number, item: any): string | undefined {

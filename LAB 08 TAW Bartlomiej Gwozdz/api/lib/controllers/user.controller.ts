@@ -20,6 +20,16 @@ class UserController implements Controller {
         this.router.delete(`${this.path}/logout/:id`, this.logout);
         this.router.get(`${this.path}/profile/:id`, this.getUserProfile);
         this.router.put(`${this.path}/profile/:id`, this.updateUserProfile);
+        
+        // Endpointy dla ulubionych postów
+        this.router.post(`${this.path}/:id/favorites/:postId`, this.addFavorite);
+        this.router.delete(`${this.path}/:id/favorites/:postId`, this.removeFavorite);
+        this.router.get(`${this.path}/:id/favorites`, this.getFavorites);
+        
+        // Endpointy dla ukrytych postów
+        this.router.post(`${this.path}/:id/hidden/:postId`, this.addHidden);
+        this.router.delete(`${this.path}/:id/hidden/:postId`, this.removeHidden);
+        this.router.get(`${this.path}/:id/hidden`, this.getHidden);
     }
 
     private createUser = async (request: Request, response: Response, next: NextFunction) => {
@@ -168,6 +178,112 @@ class UserController implements Controller {
             });
         } catch (error) {
             console.error('Error updating user profile:', error);
+            next(error);
+        }
+    };
+
+    private addFavorite = async (request: Request, response: Response, next: NextFunction) => {
+        try {
+            const { id, postId } = request.params;
+            
+            const user = await this.userService.addFavoritePost(id, postId);
+            if (!user) {
+                return response.status(404).json({ error: 'User not found' });
+            }
+
+            response.status(200).json({ 
+                message: 'Post added to favorites',
+                favoritePosts: user.favoritePosts 
+            });
+        } catch (error) {
+            console.error('Error adding favorite:', error);
+            next(error);
+        }
+    };
+
+    private removeFavorite = async (request: Request, response: Response, next: NextFunction) => {
+        try {
+            const { id, postId } = request.params;
+            
+            const user = await this.userService.removeFavoritePost(id, postId);
+            if (!user) {
+                return response.status(404).json({ error: 'User not found' });
+            }
+
+            response.status(200).json({ 
+                message: 'Post removed from favorites',
+                favoritePosts: user.favoritePosts 
+            });
+        } catch (error) {
+            console.error('Error removing favorite:', error);
+            next(error);
+        }
+    };
+
+    private getFavorites = async (request: Request, response: Response, next: NextFunction) => {
+        try {
+            const { id } = request.params;
+            
+            const favoritePosts = await this.userService.getFavoritePosts(id);
+            
+            response.status(200).json({ 
+                favoritePosts 
+            });
+        } catch (error) {
+            console.error('Error getting favorites:', error);
+            next(error);
+        }
+    };
+
+    private addHidden = async (request: Request, response: Response, next: NextFunction) => {
+        try {
+            const { id, postId } = request.params;
+            
+            const user = await this.userService.addHiddenPost(id, postId);
+            if (!user) {
+                return response.status(404).json({ error: 'User not found' });
+            }
+
+            response.status(200).json({ 
+                message: 'Post hidden',
+                hiddenPosts: user.hiddenPosts 
+            });
+        } catch (error) {
+            console.error('Error hiding post:', error);
+            next(error);
+        }
+    };
+
+    private removeHidden = async (request: Request, response: Response, next: NextFunction) => {
+        try {
+            const { id, postId } = request.params;
+            
+            const user = await this.userService.removeHiddenPost(id, postId);
+            if (!user) {
+                return response.status(404).json({ error: 'User not found' });
+            }
+
+            response.status(200).json({ 
+                message: 'Post unhidden',
+                hiddenPosts: user.hiddenPosts 
+            });
+        } catch (error) {
+            console.error('Error unhiding post:', error);
+            next(error);
+        }
+    };
+
+    private getHidden = async (request: Request, response: Response, next: NextFunction) => {
+        try {
+            const { id } = request.params;
+            
+            const hiddenPosts = await this.userService.getHiddenPosts(id);
+            
+            response.status(200).json({ 
+                hiddenPosts 
+            });
+        } catch (error) {
+            console.error('Error getting hidden posts:', error);
             next(error);
         }
     };

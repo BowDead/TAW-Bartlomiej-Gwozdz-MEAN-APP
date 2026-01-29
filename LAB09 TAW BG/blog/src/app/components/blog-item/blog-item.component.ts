@@ -45,25 +45,31 @@ export class BlogItemComponent implements OnChanges {
   toggleFavorite(event: Event): void {
     event.preventDefault();
     event.stopPropagation();
-    this.favoritesService.toggleFavorite(this.id);
-    this.favoriteChange.emit(this.id ?? '');
-    this.refreshFavoriteState();
+    this.favoritesService.toggleFavorite(this.id).subscribe(() => {
+      this.favoriteChange.emit(this.id ?? '');
+      this.refreshFavoriteState();
+    });
   }
 
   toggleHidden(event: Event): void {
     event.preventDefault();
     event.stopPropagation();
-    this.hiddenService.toggleHidden(this.id);
-    this.hiddenChange.emit(this.id ?? '');
-    this.refreshHiddenState();
+    this.hiddenService.toggleHidden(this.id).subscribe(() => {
+      this.hiddenChange.emit(this.id ?? '');
+      this.refreshHiddenState();
+    });
   }
 
   private refreshFavoriteState(): void {
-    this.isFavorite = this.favoritesService.isFavorite(this.id);
+    this.favoritesService.isFavorite(this.id).subscribe(isFav => {
+      this.isFavorite = isFav;
+    });
   }
 
   private refreshHiddenState(): void {
-    this.isHidden = this.hiddenService.isHidden(this.id);
+    this.hiddenService.isHidden(this.id).subscribe(isHid => {
+      this.isHidden = isHid;
+    });
   }
 
   deletePost(event: Event): void {

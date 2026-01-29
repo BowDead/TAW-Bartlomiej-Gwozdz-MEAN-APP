@@ -32,8 +32,10 @@ export class BlogComponent implements OnInit, OnDestroy {
   constructor(private service: DataService, private route: ActivatedRoute, private router: Router, private ratingService: RatingService, private hiddenService: HiddenService) {
   }
   ngOnInit(): void {
-    this.hiddenIds = this.hiddenService.getHidden();
-    this.getAll();
+    this.hiddenService.getHidden().subscribe(hidden => {
+      this.hiddenIds = hidden;
+      this.getAll();
+    });
   }
 
   ngOnDestroy(): void {
@@ -63,19 +65,21 @@ export class BlogComponent implements OnInit, OnDestroy {
       return;
     }
     
-    this.hiddenIds = this.hiddenService.getHidden();
-    const hiddenSet = new Set(this.hiddenIds.map(String));
-    let items = [...this.items$].filter(item => item?.id && !hiddenSet.has(String(item.id)));
-    
-    if (this.sortBy === 'rating') {
-      this.sortedItems = items.sort((a, b) => {
-        const ratingA = this.ratingService.getAverageRating(a.id);
-        const ratingB = this.ratingService.getAverageRating(b.id);
-        return ratingB - ratingA;
-      });
-    } else {
-      this.sortedItems = items;
-    }
+    this.hiddenService.getHidden().subscribe(hidden => {
+      this.hiddenIds = hidden;
+      const hiddenSet = new Set(this.hiddenIds.map(String));
+      let items = [...this.items$].filter(item => item?.id && !hiddenSet.has(String(item.id)));
+      
+      if (this.sortBy === 'rating') {
+        this.sortedItems = items.sort((a, b) => {
+          const ratingA = this.ratingService.getAverageRating(a.id);
+          const ratingB = this.ratingService.getAverageRating(b.id);
+          return ratingB - ratingA;
+        });
+      } else {
+        this.sortedItems = items;
+      }
+    });
   }
 
   handleHiddenChange(id: string): void {
