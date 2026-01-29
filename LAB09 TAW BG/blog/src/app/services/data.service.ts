@@ -22,6 +22,10 @@ export class DataService {
     return this.http.post(this.url + '/api/posts', post);
   }
 
+  addPostWithFile(formData: FormData) {
+    return this.http.post(this.url + '/api/posts', formData);
+  }
+
   deletePost(id: string) {
     return this.http.delete(this.url + '/api/posts/' + id);
   }

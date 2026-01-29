@@ -106,27 +106,52 @@ export class AddPostComponent {
 
     const { title, text, image } = this.postForm.value;
     
-    // Pokazanie preview obrazu w base64, dla sprawdzenia
-    const finalImage = this.imageSource === 'file' ? this.imagePreview : image;
-    const post = { title, text, image: finalImage };
+    // Wysyłanie FormData gdy wybrano plik, JSON gdy URL
+    if (this.imageSource === 'file' && this.selectedFile) {
+      const formData = new FormData();
+      formData.append('title', title);
+      formData.append('text', text);
+      formData.append('image', this.selectedFile);
+      
+      this.dataService.addPostWithFile(formData).subscribe({
+        next: (response) => {
+          this.showSuccessMessage = true;
+          this.postForm.reset();
+          this.isSubmitted = false;
+          this.imagePreview = null;
+          this.selectedFile = null;
+          this.imageSource = 'url';
 
-    this.dataService.addPost(post).subscribe({
-      next: (response) => {
-        this.showSuccessMessage = true;
-        this.postForm.reset();
-        this.isSubmitted = false;
-        this.imagePreview = null;
-        this.selectedFile = null;
-        this.imageSource = 'url';
+          setTimeout(() => {
+            this.showSuccessMessage = false;
+          }, 3000);
+        },
+        error: (error) => {
+          console.error('Error adding post:', error);
+          alert('Wystąpił błąd podczas dodawania posta. Spróbuj ponownie.');
+        }
+      });
+    } else {
+      // URL-based image
+      const post = { title, text, image };
+      this.dataService.addPost(post).subscribe({
+        next: (response) => {
+          this.showSuccessMessage = true;
+          this.postForm.reset();
+          this.isSubmitted = false;
+          this.imagePreview = null;
+          this.selectedFile = null;
+          this.imageSource = 'url';
 
-        setTimeout(() => {
-          this.showSuccessMessage = false;
-        }, 3000);
-      },
-      error: (error) => {
-        console.error('Error adding post:', error);
-        alert('Wystąpił błąd podczas dodawania posta. Spróbuj ponownie.');
-      }
-    });
+          setTimeout(() => {
+            this.showSuccessMessage = false;
+          }, 3000);
+        },
+        error: (error) => {
+          console.error('Error adding post:', error);
+          alert('Wystąpił błąd podczas dodawania posta. Spróbuj ponownie.');
+        }
+      });
+    }
   }
 }
