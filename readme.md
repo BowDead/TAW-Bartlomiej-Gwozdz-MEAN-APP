@@ -1,15 +1,20 @@
 # Uruchomienie aplikacji:
 
-## Lokacja LAB 08 TAW Bartlomiej Gwozdz/api 
+## Otwórz terminal:
+
+## Lokalizacja: LAB 08 TAW Bartlomiej Gwozdz/api 
 
 - npm install (pierwsze uruchomienie)
 - npm run watch
 
-## Lokacja LAB09 TAW BG/blog
+## Lokalizacja: LAB09 TAW BG/blog
 
 - npm install (pierwsze uruchomienie)
 - npm start
 
+## Otwórz:
+
+http://localhost:4200/
 
 ### Funkcjonalności podstawowe:
 
@@ -22,7 +27,7 @@
 
 ### Funkcjonalnośc własna:
 
-- Ukrywanie postów
+- Ukrywanie postów (Naciśnięcie przycisku oka w blogu ukrywa post i pojawia się on teraz w zakładce ukryte)
 
 
 ### Link do github:
